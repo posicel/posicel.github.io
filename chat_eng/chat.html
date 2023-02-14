@@ -1,0 +1,120 @@
+<html>
+    <meta charset="UTF-8">
+<head>
+    <script src="js/jquery360.js"></script>
+
+    <script src="js/authentification.js"></script>
+    <script src="js/update_msg.js"></script> 
+    <script src="js/send_msg.js"></script>  
+
+    <link rel="stylesheet" href='css/my_style.css'>
+</head>
+<body>
+    <! -- Это для тестирования -->
+    <table width="99.5%">
+        <tr width="100%"> 
+            <td width="80%" id = "all_msg"><p><b> Messages of the chat:</b></p></td>
+            <td width="20%" id = "number_msg">Number of messages:  <b id="report"></b></td>
+        </tr>
+    </table>    
+    <! -- Это окно чата -->
+    <div id="block">
+        <! -- Две кнопки для подгрузки более старых сообщений. --> 
+        <button id="get_more" onclick="getMore()"></button>
+        <button id="get_rest" onclick="getRest()">Get all other messages</button>
+        <br>    
+    </div> 
+
+    <table width="99.5%">
+        <tr width="100%"> 
+            <td width="10%">
+                <b id="e-mail">E-mail:</b>
+                <! -- Here user writes their e-mail -->
+                <input id="mail"></input>
+                <br>
+                <b id="phone">Phone:</b>
+                <! -- Here user writes their phone number as a password -->
+                <input id="password"></input>
+                <br>
+                <br>
+                <button onclick="login()" id="login">Login</button> 
+            </td>          
+            <td width="90%">
+                <! -- Here it will be written "Authentification failed" -->
+                <span id="output"></span>
+
+                <p id="send_message">Your message:</p>
+
+                <! -- Here the user writes their messages -->
+                <input id="my_message"></input>
+                <br>
+
+                <! -- Button "Send My Message"is available after authorization. -->                
+                <button id="b_send_get_msg" onclick="send_msg()">Send My Message</button> 
+            </td>        
+        </tr> 
+    </table>       
+</body>
+<script>
+
+    // The programm consists of 3 parts in 3 separete .js-files.
+    // 1. Authenticate the user, get a token to send future messages. 
+        // (when the user clicks the "Login" button)
+        // authentification.js
+    // 2. Download old messages, wait, check and download new messages. 
+        // update_msg.js
+    // 3. Send messages (when the user clicks the "Send Message" button) 
+        // send_msg.js
+
+    var block = document.getElementById("block");
+
+    const how_long = 500; // How often we check for new messages (500 = twice a second)
+    const how_many = 50; // How many old messges we download at once without user request.
+
+    var user; // An object consisting of token amd object (name, surename).
+    var token; // Tocken is a stroke sending with every message.
+    var name; // User's name. 
+
+    var last_message = 0; // How many messages there are on the server, as known to us.
+
+    var start = false; // No downloaded masseges.
+    var first_downloaded; // Number of the first downloaded message. 
+    var last_downloaded; // Number of the last downloaded message. 
+
+
+    window.onload = function() 
+    {
+            init_chat()
+    };
+
+    function init_chat()
+    {
+        // Hide chat window.
+        $("#block").hide();
+        $("#all_msg").hide();
+        $("#number_msg").hide();
+
+        // Hide sending messages.
+        $("#send_message").hide();
+        $("#my_message").hide();
+        $("#b_send_get_msg").hide();
+
+        //Hide buttons to download more messages.
+        $("#get_rest").hide();
+        $("#get_more").hide();
+        
+        // Write how_many masseges should be downloaded.
+        document.getElementById("get_more").innerHTML = 'Get ' + how_many + ' more messages';
+
+        // Further actions are initiated by the user clicking the buttons.
+
+    };
+
+    // Remove "Default name" when the user tries to type another name.
+    function empty()
+    {
+        document.getElementById("input_name").value = null;
+    }
+
+</script>
+</html>
