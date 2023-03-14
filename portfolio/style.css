@@ -61,12 +61,10 @@ body {
 }
 
 button {
-  background-color: #fff;
   border: none;
-  color: #aaa;
   cursor: pointer;
-  font-size: 16px;
   padding: 15px;
+  color: #aaa;
 }
 
 button:hover {
@@ -82,6 +80,8 @@ button:focus {
   left: 35%;
   top: 50%;
   z-index: 100;
+  font-size: 16px;
+  background-color: #fff;
 }
 
 .container .controls .down-button {
@@ -94,4 +94,10 @@ button:focus {
   transform: translateY(-100%);
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
+}
+
+.container .sidebar .project {
+  border-radius: 5px; 
+  background-color: "black";
+
 }
