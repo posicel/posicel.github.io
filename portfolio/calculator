@@ -1,0 +1,201 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Codespaces
+Marketplace
+Explore
+ 
+@posicel 
+onlineitschool
+/
+calculator-pub
+Public
+Fork your own copy of onlineitschool/calculator-pub
+Code
+Issues
+Pull requests
+1
+Actions
+Projects
+Wiki
+Security
+Insights
+calculator-pub/Masha/calculator/calculator_4.html
+@posicel
+posicel Restructurization
+Latest commit 2bfd957 on Jan 12
+ History
+ 1 contributor
+155 lines (145 sloc)  4.26 KB
+
+<!DOCTYPE html>
+<html>
+    <meta charset="UTF-8">
+<style>
+   button {
+    background: #008EB0; /* Синий цвет фона */
+    color: #fff; /* Белый цвет текста */
+    border: none; /* Убираем рамку */
+    padding: 1rem 1.5rem; /* Поля вокруг текста */
+    margin-bottom: 1rem; /* Отступ снизу */  
+    width: 55 px;
+    min-width: 100%;
+    max-width: 100%;
+   }
+   .green { background: #73A353; }
+   .red { background: #C1172C; }
+   .orange { background: #F7941E; }
+  </style>
+ </head>
+ <body>
+
+<h2>Калькулятор</h2>
+<p>Введите первое число, кликая на кнопки-цифры.</p>
+<p>Нажмите на знак действия.</p>
+<p>Введите второе число и нажмите на знак =.</p>
+
+<input type="text" id="display">
+
+<script>
+let on_screen = 0;
+let in_memory = 0;
+let operation = "";
+</script>
+
+<table>
+<tr height="55", align="right", background = #008EB0>
+	<td colspan="4"><p id="demo"></td>
+</tr>
+<tr height="35">
+	<td><button onclick="displayMyNumber(1)">1</button></td> 
+    <td><button onclick="displayMyNumber(2)">2</button></td>
+    <td><button onclick="displayMyNumber(3)">3</button></td>
+    <td><button class="green" onclick="Add()">+</button></td>
+</tr>
+<tr height="35">
+	<td><button onclick="displayMyNumber(4)">4</button></td>
+    <td><button onclick="displayMyNumber(5)">5</button></td>
+    <td><button onclick="displayMyNumber(6)">6</button></td>
+    <td><button class="green" onclick="Substract()"> - </button></td> 
+</tr>
+<tr height="35">
+	<td><button onclick="displayMyNumber(7)">7</button></td>
+    <td><button onclick="displayMyNumber(8)">8</button></td>
+    <td><button onclick="displayMyNumber(9)">9</button></td>
+    <td><button class="green" onclick="Mult()">x</button></td> 
+</tr>
+<tr height="35">
+	<td><button class="orange" onclick="()">.</button></td> 
+    <td><button onclick="displayMyNumber(0)">0</button></td>
+    <td><button class="red" onclick="Result()">=</button></td>
+    <td><button class="green" onclick="Delete()"> / </button></td> 
+</tr>
+</table>
+
+<script>
+//This script makes multi-digital number
+function displayMyNumber(num) {
+    on_screen = on_screen * 10 + num    
+  document.getElementById("demo").innerHTML = on_screen;
+  document.getElementById("display").value = 
+  "" + document.getElementById("display").value + num
+}
+</script>
+
+<script>
+//This script moves us to the second operand.
+function Add() {
+  in_memory = on_screen;
+  on_screen = 0; 
+  document.getElementById("display").value = 
+  "" + document.getElementById("display").value + " + "; 
+  operation = "+" 
+}
+</script>
+
+<script>
+    //This script moves us to the second operand.
+function Substract() {
+    in_memory = on_screen;
+    on_screen = 0; 
+    document.getElementById("display").value = 
+    "" + document.getElementById("display").value + " - "; 
+    operation = "-"
+}
+</script>
+
+<script>
+    //This script moves us to the second operand.
+    function Mult() {
+      in_memory = on_screen;
+      on_screen = 0; 
+      document.getElementById("display").value = 
+      "" + document.getElementById("display").value + " * "; 
+      operation = "*" 
+    }
+    </script>
+    
+    <script>
+        //This script moves us to the second operand.
+    function Delete() {
+        in_memory = on_screen;
+        on_screen = 0; 
+        document.getElementById("display").value = 
+        "" + document.getElementById("display").value + " / "; 
+        operation = "/"
+    }
+    </script>
+
+<script>
+//This script makes the arithmetic operation.
+function Result() 
+{
+if (operation == "+") 
+{
+    on_screen = in_memory + on_screen;
+    in_memory = 0;   
+    document.getElementById("demo").innerHTML = on_screen;
+} 
+else 
+if (operation == "-") 
+{
+    on_screen = in_memory - on_screen;
+    in_memory = 0;   
+    document.getElementById("demo").innerHTML = on_screen;
+} 
+else 
+if (operation == "*") 
+{
+    on_screen = in_memory * on_screen;
+    in_memory = 0;   
+    document.getElementById("demo").innerHTML = on_screen;
+} 
+else 
+if (operation == "/") 
+{
+    on_screen = in_memory / on_screen;
+    in_memory = 0;   
+    document.getElementById("demo").innerHTML = on_screen;
+} 
+document.getElementById("display").value = 
+"" + document.getElementById("display").value + " = " + on_screen
+}
+</script>
+</body>
+</html>
+Footer
+© 2023 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+calculator-pub/calculator_4.html at main · onlineitschool/calculator-pub
