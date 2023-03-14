@@ -19,18 +19,12 @@
  </head>
  <body>
 
-<h2>Калькулятор</h2>
-<p>Введите первое число, кликая на кнопки-цифры.</p>
-<p>Нажмите на знак действия.</p>
-<p>Введите второе число и нажмите на знак =.</p>
+<h2>Calculator</h2>
+<p>Enter the first number clicking on digit buttons.</p>
+<p>Click on the action sign.</p>
+<p>Enter the second number and click on the =.</p>
 
 <input type="text" id="display">
-
-<script>
-let on_screen = 0;
-let in_memory = 0;
-let operation = "";
-</script>
 
 <table>
 <tr height="55", align="right", background = #008EB0>
@@ -63,60 +57,59 @@ let operation = "";
 </table>
 
 <script>
+let on_screen = 0;
+let in_memory = 0;
+let operation = "";
+
 //This script makes multi-digital number
-function displayMyNumber(num) {
+function displayMyNumber(num) 
+{
     on_screen = on_screen * 10 + num    
   document.getElementById("demo").innerHTML = on_screen;
   document.getElementById("display").value = 
   "" + document.getElementById("display").value + num
 }
-</script>
 
-<script>
 //This script moves us to the second operand.
-function Add() {
+function Add() 
+{
   in_memory = on_screen;
   on_screen = 0; 
   document.getElementById("display").value = 
   "" + document.getElementById("display").value + " + "; 
   operation = "+" 
 }
-</script>
 
-<script>
-    //This script moves us to the second operand.
-function Substract() {
+//This script moves us to the second operand.
+function Substract() 
+{
     in_memory = on_screen;
     on_screen = 0; 
     document.getElementById("display").value = 
     "" + document.getElementById("display").value + " - "; 
     operation = "-"
 }
-</script>
 
-<script>
-    //This script moves us to the second operand.
-    function Mult() {
-      in_memory = on_screen;
-      on_screen = 0; 
-      document.getElementById("display").value = 
-      "" + document.getElementById("display").value + " * "; 
-      operation = "*" 
-    }
-    </script>
-    
-    <script>
-        //This script moves us to the second operand.
-    function Delete() {
-        in_memory = on_screen;
-        on_screen = 0; 
-        document.getElementById("display").value = 
-        "" + document.getElementById("display").value + " / "; 
-        operation = "/"
-    }
-    </script>
+//This script moves us to the second operand.
+function Mult() 
+{
+    in_memory = on_screen;
+    on_screen = 0; 
+    document.getElementById("display").value = 
+    "" + document.getElementById("display").value + " * "; 
+    operation = "*" 
+}
 
-<script>
+//This function moves us to the second operand.
+function Delete() 
+{
+    in_memory = on_screen;
+    on_screen = 0; 
+    document.getElementById("display").value = 
+    "" + document.getElementById("display").value + " / "; 
+    operation = "/"
+}    
+
 //This script makes the arithmetic operation.
 function Result() 
 {
