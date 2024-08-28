@@ -1,0 +1,37 @@
+body {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+#instructions {
+    margin-bottom: 10px;
+    margin-right: 20px;
+}
+
+#textures {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+#textures img {
+    width: 100px;  /* Ширина миниатюры */
+    height: 100px; /* Высота миниатюры */
+    margin-bottom: 10px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+    margin: 5px;
+}
+
+#textures img.selected {
+    border-color: black;
+}
+
+#canvas {
+    border: 1px solid #000;
+    margin-right: 20px;
+}
