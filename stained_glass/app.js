@@ -4,6 +4,7 @@ import { detectContours } from './modules/contourDetection.js';
 import { fillContour } from './modules/fillContour.js';
 
 let selectedTexture = null;
+let listOfAreas = [];
 
 document.getElementById('upload').addEventListener('change', async (event) => {
     const img = await uploadImage(event);
@@ -24,11 +25,12 @@ document.getElementById('upload').addEventListener('change', async (event) => {
     // Обработчик клика для заливки текстурой
     canvas.addEventListener('click', (e) => {
         if (selectedTexture) {
-            fillContour(ctx, canvas, e.offsetX, e.offsetY, selectedTexture);
+            fillContour(ctx, canvas, e.offsetX, e.offsetY, listOfAreas, selectedTexture);
         }
     });
 });
 
+    // Выбор текстуры пользователем
 document.querySelectorAll('#textures img').forEach(img => {
     img.addEventListener('click', () => {
         document.querySelectorAll('#textures img').forEach(el => el.classList.remove('selected'));

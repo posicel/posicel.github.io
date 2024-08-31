@@ -1,4 +1,4 @@
-export function fillContour(ctx, canvas, x, y, textureSrc) {
+export function fillContour(ctx, canvas, x, y, listOfAreas, textureSrc) {
     const texture = new Image();
     texture.src = textureSrc;
     texture.onload = function() {
@@ -9,17 +9,18 @@ export function fillContour(ctx, canvas, x, y, textureSrc) {
         // Получаем цвет пикселя по клику
         const startColor = getPixelColor(data, x, y, canvas.width);
 
+        ctx.fillStyle = pattern;
+
         // Проверяем, что цвет пикселя белый
-        if (isWhiteColor(startColor)) {
-            ctx.fillStyle = pattern;
-            floodFill(ctx, x, y, canvas.width, canvas.height, startColor, data);
+        if (isWhiteColor(startColor)) { 
+            floodFill(ctx, x, y, canvas.width, canvas.height, data, listOfAreas);
         } else {
-            console.log('Clicked color is not white:', startColor);
+            reFlood(ctx, x, y, listOfAreas);
         }
     };
 }
 
-function floodFill(ctx, x, y, width, height, startColor, data) {
+function floodFill(ctx, x, y, width, height, data, listOfAreas) {
     const stack = [[x, y]];
     const visited = new Set();
     const threshold = 240;
@@ -41,11 +42,26 @@ function floodFill(ctx, x, y, width, height, startColor, data) {
             if (currentY < height - 1) stack.push([currentX, currentY + 1]);
         }
     }
+
+    listOfAreas.push(visited);
+    return listOfAreas;
+
 }
 
 function getPixelColor(data, x, y, width) {
     const index = (y * width + x) * 4;
     return [data[index], data[index + 1], data[index + 2], data[index + 3]];
+}
+
+function reFlood (ctx, x, y, listOfAreas){
+    listOfAreas.forEach(area => {
+        if (area.has(`${x},${y}`)){ // проверяем наличие точки в множестве
+            area.forEach(pointStr => { // pointStr будет в формате `${x},${y}`
+                const [px, py] = pointStr.split(',').map(Number); // парсим точку обратно в числа
+                ctx.fillRect(px, py, 1, 1); // красим пиксель
+            })   
+        }
+    });    
 }
 
 function isWhiteColor(color) {
