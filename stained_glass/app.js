@@ -6,15 +6,28 @@ import { fillContour } from './modules/fillContour.js';
 let selectedTexture = null;
 let listOfAreas = [];
 
-document.getElementById('upload').addEventListener('change', async (event) => {
-    const img = await uploadImage(event);
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-    
-    // Отображаем изображение
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+// Создаем объект Image и загружаем в него изображение
+const img = new Image();
+img.src = 'pictures/bird.jpg';
+
+img.onload = function() {
+    pictureProcessing(ctx, canvas, img);
+};
+
+img.onerror = function() {
+    console.error("Ошибка загрузки изображения по пути: " + img.src);
+};
+
+function pictureProcessing(ctx, canvas, img) {
+    // Устанавливаем размеры canvas по размеру изображения
     canvas.width = img.width;
     canvas.height = img.height;
-    ctx.drawImage(img, 0, 0);
+
+    // Отображаем изображение
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
     // Преобразуем в черно-белое
     convertToGrayscale(ctx, canvas);
@@ -28,9 +41,14 @@ document.getElementById('upload').addEventListener('change', async (event) => {
             fillContour(ctx, canvas, e.offsetX, e.offsetY, listOfAreas, selectedTexture);
         }
     });
+};
+
+document.getElementById('upload').addEventListener('change', async (event) => {
+    const img = await uploadImage(event);
+    pictureProcessing(ctx, canvas, img);
 });
 
-    // Выбор текстуры пользователем
+// Выбор текстуры пользователем
 document.querySelectorAll('#textures img').forEach(img => {
     img.addEventListener('click', () => {
         document.querySelectorAll('#textures img').forEach(el => el.classList.remove('selected'));
