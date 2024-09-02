@@ -22,6 +22,8 @@ img.onerror = function() {
 };
 
 function pictureProcessing(ctx, canvas, img) {
+    listOfAreas = [];
+
     // Устанавливаем размеры canvas по размеру изображения
     canvas.width = img.width;
     canvas.height = img.height;
